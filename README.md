@@ -49,7 +49,7 @@ Step 4:
         'data point 3',
         'data point 4',
       ]
-      // object holding a numbered indexs for each person/ criteria you are tracking
+      // object using numbered indexes for each person/ criteria you are graphing
       chartData: {
         // name = what you want to graph,
         // score = an array of ints with a length equal to the dataPoints, default = 4,
