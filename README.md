@@ -35,26 +35,26 @@ Step 4:
     // create obj
     var obj = {
       // how much indent margin you want around graph default = 25
-      borderOffset: 25,
+        borderOffset: 25,
       // how many lines will be drawn on graph: default = 4
-      dataPoints: 4,
+        dataPoints: 4,
       // how many rings will be drawn default = 5
-      levels: 5,
+        levels: 5,
       // maximum score to be used default = 25
-      maxValue: 25,
+        maxValue: 25,
       // array labels for the data points
-      labels: [
-        'data point 1',
-        'data point 2',
-        'data point 3',
-        'data point 4',
-      ]
+        labels: [
+          'data point 1',
+          'data point 2',
+          'data point 3',
+          'data point 4',
+        ]
       // object using numbered indexes for each person/ criteria you are graphing
-      chartData: {
-        // name = what you want to graph,
-        // score = an array of ints with a length equal to the dataPoints, default = 4,
-        // color = color that will be used for each obj index 
-        {'0':{'name':'person1', 'score':[20,15,15,16.6],'color':'red'}
+        chartData: {
+          // name = what you want to graph,
+          // score = an array of ints with a length equal to the dataPoints, default = 4,
+          // color = color that will be used for each obj index 
+            {'0':{'name':'person1', 'score':[20,15,15,16.6],'color':'red'}
         }
-    };
+     };
      
