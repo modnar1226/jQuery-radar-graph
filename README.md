@@ -17,7 +17,23 @@ Step 2:
   
 Step 3:
   Inside your custom js file or inside the script tags add the following at a minimun to test:
-  
+
     $(document).ready(function (){
-    $('#canvas1').graphMod();
+      $('#canvas1').radarGraph();
     });
+  This should display an example graph to confirm that it works.
+  
+Step 4:
+  To customize the graph to your needs, create an object to pass to the plug in.
+  
+    // create obj
+    var obj = {
+      // object holding a numbered indexs for each person/ criteria you are tracking
+      chartData: {
+        // name = what you want to graph,
+        // score = an array of ints with a length equal to the dataPoints, default = 4,
+        // color = color that will be used for each obj index 
+        {'0':{'name':'person1', 'score':[25,25,25,25],'color':}
+        }
+    };
+     
