@@ -1,5 +1,5 @@
 (function ( $ ) {
-    $.fn.graphMod = function (options) {
+    $.fn.radarGraph = function (options) {
         /**
          *  @param var defaults = object;
          *  add to it but dont call directly use 'settings.key' instead
