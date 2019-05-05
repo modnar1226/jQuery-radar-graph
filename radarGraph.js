@@ -14,10 +14,10 @@
             height: 300,
             maxValue: 25,
             labels: [
-                'name score',
-                'proximity',
-                'commonality',
-                'quality score',
+                'data point 1',
+                'data point 2',
+                'data point 3',
+                'data point 4',
             ],
             chartData: {
                 '0':{'name':'person1','score':[20,15,15,16.6], 'color':'red'},
