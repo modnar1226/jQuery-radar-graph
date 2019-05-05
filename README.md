@@ -1,6 +1,8 @@
 # jQuery-radar-graph
 Create a customizable radar graph with minimal code. 
 
+Normal version or .min available.
+
 Step 1:
   Link the radarGraph.js file:
     <script type="text/javascript" src="FILEPATH/TO/radarGraph.js"></script>
