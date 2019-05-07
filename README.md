@@ -1,7 +1,7 @@
 # jQuery-radar-graph
 Create a customizable radar graph with minimal code. 
 
-JSFIDDLE:
+DEMO / JSFIDDLE:
 https://jsfiddle.net/ewvxonj3/
 
 Normal version or .min available.
