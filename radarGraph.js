@@ -5,25 +5,24 @@
          *  add to it but dont call directly use 'settings.key' instead
         **/
         var defaults = {
+            polyFill: false,
             borderOffset: 25,
-            transition:'',
             dataPoints: 4,
             levels: 5,
             levelColor: '#b5b5b5',
-            width: 300,
-            height: 300,
             maxValue: 25,
             labels: [
-                'data point 1',
-                'data point 2',
-                'data point 3',
-                'data point 4',
+                'data point1',
+                'data point2',
+                'data point3',
+                'data point4',
             ],
             chartData: {
-                '0':{'name':'person1','score':[20,15,15,16.6], 'color':'red'},
-                '1':{'name':'person2','score':[17,15,15,15.6], 'color':'blue'},
-                '2':{'name':'person3','score':[20,25,20,21.6], 'color':'green'},
-                '3':{'name':'person4','score':[25,15,25,21.6], 'color':'purple'},
+                // color accepts hex value also : #666666
+                '0':{'name':'thing1','score':[20,15,15,16.6], 'color':'red'},
+                '1':{'name':'thing2','score':[17,15,15,15.6], 'color':'blue'},
+                '2':{'name':'thing3','score':[20,25,20,21.6], 'color':'green'},
+                '3':{'name':'thing4','score':[25,15,25,21.6], 'color':'purple'},
             },
         }
         /**
@@ -47,11 +46,13 @@
         return this.each(function(key,element){
             if (element.getContext) {
                 var ctx = element.getContext('2d');
+                if (verifyNoErrors() === false) {
+                    return;
+                }
                 var vectors = drawDataPoints(ctx);
-                verifyNoErrors();
                 drawLevels(ctx);
                 drawLabels(ctx, vectors);
-                var html = makeNewDiv(element);
+                var html = drawLegend(element);
                 html.appendTo(element.parentElement);
                 drawChartData(ctx)
             } else {
@@ -63,11 +64,19 @@
         **/
 
         function verifyNoErrors() {
+            var errorCheck = true
             // check that labels equals the dsettings.maxValue / radiusata points
             if (settings.dataPoints !== settings.labels.length) {
                 alert('Label count and data point count do not match');
-                return;
+                errorCheck =  false;
             }
+            $.each(settings.chartData, function (key, value){
+                if (this.score.length !== settings.dataPoints) {
+                    alert('The input score array length for '+ this.name +' does not match the label count.');
+                    errorCheck =  false;
+                }
+            });
+            return errorCheck;
         }
 
         // Draws the appropriate slices for number of data points default = 4;
@@ -94,8 +103,8 @@
 
         function drawLevels(ctx){
             var workingRingSpace = 0;
-            for (var i = 0; i < settings.levels; i++) {
-                ctx.fillText((settings.maxValue / settings.levels) * i, halfWidth + workingRingSpace,halfHeight);
+            for (var lev = 0; lev < settings.levels; lev++) {
+                ctx.fillText((settings.maxValue / settings.levels) * lev, halfWidth + workingRingSpace,halfHeight);
                 workingRingSpace += ringSpace;
                 ctx.beginPath();
                 // draw a circle with radius of 'workingRingSpace' ie incriment by ring space
@@ -143,7 +152,7 @@
             }
         }
 
-        function makeNewDiv(element) {
+        function drawLegend(element) {
             var container = $('<div>').attr({
                 id:'canvasLegend',
             }).css({
@@ -177,15 +186,15 @@
                 listStyleType: 'square',
 
             });
-            for (var i = 0; i < settings.labels.length; i++) {
-                var newtext = settings.labels[i].replace(/^\b[a-z]/, function(oldtext) {
+            for (var label = 0; label < settings.labels.length; label++) {
+                var newtext = settings.labels[label].replace(/^\b[a-z]/, function(oldtext) {
                     return oldtext.toUpperCase();
                 });
                 var legendItem = '<li>'+ newtext +'</li>';
                 legendList.append(legendItem);
             }
-            for (var i = 0; i < Object.keys(settings.chartData).length; i++) {
-                var colorItem = '<li style="color:'+ settings.chartData[i].color +'"><span style="color:black;">'+ settings.chartData[i].name +'</span></li>'
+            for (var index = 0; index < Object.keys(settings.chartData).length; index++) {
+                var colorItem = '<li style="color:'+ settings.chartData[index].color +'"><span style="color:black;">'+ settings.chartData[index].name +'</span></li>'
                 colorList.append(colorItem);
             }
             leftHtml.append(legendList);
@@ -219,22 +228,25 @@
                     workingAngle += incrimentAngle;
                 }
                 ctx.strokeStyle = settings.chartData[i].color;
-                ctx.fillStyle = settings.chartData[i].color;
 
-                ctx.globalAlpha = 0.2;
-                ctx.beginPath();
-                ctx.moveTo(polygonX[0],polygonY[0]);
-                for (var p = 1; p < polygonX.length; p++) {
-                    ctx.lineTo(polygonX[p],polygonY[p]);
+                if (settings.polyFill === true) {
+                    ctx.fillStyle = settings.chartData[i].color;
+                    ctx.globalAlpha = 0.2;
+                    ctx.beginPath();
+                    ctx.moveTo(polygonX[0],polygonY[0]);
+                    for (var p1 = 1; p1 < polygonX.length; p1++) {
+                        ctx.lineTo(polygonX[p1],polygonY[p1]);
+                    }
+                    ctx.closePath();
+
+                    ctx.fill();
+                    ctx.globalAlpha = 1;
                 }
-                ctx.closePath();
-                ctx.fill();
-                ctx.globalAlpha = 1;
 
                 ctx.beginPath();
                 ctx.moveTo(polygonX[0],polygonY[0]);
-                for (var p = 1; p < polygonX.length; p++) {
-                    ctx.lineTo(polygonX[p],polygonY[p]);
+                for (var p2 = 1; p2 < polygonX.length; p2++) {
+                    ctx.lineTo(polygonX[p2],polygonY[p2]);
                 }
                 ctx.closePath();
                 ctx.stroke();
