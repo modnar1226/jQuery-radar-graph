@@ -37,15 +37,17 @@ Step 4:
   
     // create obj
     var obj = {
-      // how much indent margin you want around graph default = 25
+      // fill the shapes drawn or not default = false /boolean
+        polyfill: false
+      // how much indent margin you want around graph default = 25 int
         borderOffset: 25,
-      // how many lines will be drawn on graph: default = 4
+      // how many lines will be drawn on graph: default = 4 int
         dataPoints: 4,
-      // how many rings will be drawn default = 5
+      // how many rings will be drawn default = 5 int
         levels: 5,
-      // maximum score to be used default = 25
+      // maximum score to be used default = 25 int
         maxValue: 25,
-      // array labels for the data points
+      // array labels for the data points, default array length = 4 
         labels: [
           'data point 1',
           'data point 2',
