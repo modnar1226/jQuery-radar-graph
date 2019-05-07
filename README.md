@@ -2,7 +2,7 @@
 Create a customizable radar graph with minimal code. 
 
 JSFIDDLE:
-https://jsfiddle.net/um7jxfys/25/
+https://jsfiddle.net/xgar861t/10/
 
 Normal version or .min available.
 
